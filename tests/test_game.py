@@ -17,3 +17,9 @@ class TestGame:
     assert game.is_valid('BAROQUE') == True
     assert game.is_valid('WAGON') == False
     assert game.is_valid('BARROQUE') == False
+
+  def test_unknown_word_is_invalid(self):
+    """A word that is not in the english directory should no be valid"""
+    new_game = Game()
+    new_game.grid = list('KWIENFUQW')
+    assert new_game.is_valid('FEUN') is False
