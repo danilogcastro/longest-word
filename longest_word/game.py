@@ -3,6 +3,8 @@
 
 import random
 import string
+import requests
+import json
 
 class Game:
     """A class to create the longest word game"""
@@ -12,6 +14,9 @@ class Game:
 
     def is_valid(self, word: str) -> bool:
         """Return True if and only if the word is valid, given the Game's grid"""
+        if not self.is_in_dictionary(word):
+            return False
+
         for letter in word:
             if letter not in self.grid:
                 return False
@@ -19,6 +24,12 @@ class Game:
             self.grid.remove(letter)
 
         return True
+
+    @staticmethod
+    def is_in_dictionary(word):
+        api_response = requests.get(f"https://wagon-dictionary.herokuapp.com/{word}").json()
+
+        return api_response['found']
 
 if __name__ == "__main___":
     pass
